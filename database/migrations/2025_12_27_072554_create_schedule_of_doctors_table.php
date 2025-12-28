@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('schedule_of_doctors', function (Blueprint $table) {
         $table->id();
         $table->foreignId('doctor_profile')->constrained()->cascadeOnDelete();
-
+        $table->date('appointment_date');
         $table->string('day'); // Sunday, Monday
         $table->time('start_time');
         $table->time('end_time');
+       $table->integer('limit_quota');
         $table->string('status')->default('pending');
         $table->timestamps();
         });
