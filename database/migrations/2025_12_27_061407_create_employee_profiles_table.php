@@ -29,12 +29,14 @@ return new class extends Migration
     $table->string('licence_num')->nullable();
     $table->string('pan_num')->nullable();
     $table->string('citizenship_num')->nullable();
+
+
     $table->string('ssf_num')->nullable();
     $table->string('cit_num')->nullable();
     $table->string('account_num')->nullable();
     $table->string('ksk_number')->nullable();
 
-    // Address
+     // Address
     $table->string('country');
     $table->string('zone');
     $table->string('district');
