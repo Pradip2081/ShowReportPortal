@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_profiles', function (Blueprint $table) {
-             $table->id();
+        Schema::create('doctors', function (Blueprint $table) {
+              $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             // Basic Info
             $table->string('first_name');
@@ -72,7 +72,6 @@ return new class extends Migration
             // Status
             $table->enum('status', ['active', 'inactive'])->default('active');
 
-            $table->timestamps();
         });
     }
 
@@ -81,6 +80,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_profiles');
+        Schema::dropIfExists('doctors');
     }
 };

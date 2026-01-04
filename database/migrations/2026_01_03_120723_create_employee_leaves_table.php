@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employee_leaves', function (Blueprint $table) {
-             $table->id();
+                  $table->id();
 
-    $table->foreignId('employee_profile_id')
+    $table->foreignId('employee_id')
           ->constrained()
           ->cascadeOnDelete();
 
@@ -40,8 +40,7 @@ return new class extends Migration
     $table->foreignId('approved_by')->nullable(); // admin / HR
 
     $table->timestamps();
-});
-    
+        });
     }
 
     /**

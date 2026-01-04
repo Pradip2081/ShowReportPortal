@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_profiles', function (Blueprint $table) {
-    $table->id();
+        Schema::create('employees', function (Blueprint $table) {
+             $table->id();
     $table->string('emp_id')->unique();
 
     $table->foreignId('designation_id')
@@ -65,6 +65,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_profiles');
+        Schema::dropIfExists('employees');
     }
 };

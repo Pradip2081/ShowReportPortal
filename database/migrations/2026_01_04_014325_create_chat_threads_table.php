@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('chat_threads', function (Blueprint $table) {
-    $table->id();
+        Schema::create('chat_threads', function (Blueprint $table) {
+            $table->id();
 
     // Participants
     $table->foreignId('patient_id')
           ->constrained('patients')
           ->cascadeOnDelete();
 
-    $table->foreignId('doctor_profile_id')
-          ->constrained('doctor_profiles')
+    $table->foreignId('doctor_id')
+          ->constrained('doctors')
           ->cascadeOnDelete();
 
     // Optional: link to ticket / appointment
@@ -35,13 +35,10 @@ return new class extends Migration
 
     $table->timestamps();
 
-    // One chat per patient-doctor per ticket
-    $table->unique([
-        'patient_id',
-        'doctor_profile_id',
-        'ticket_id'
-    ]);
-});
+    // One chat per patient–doctor–ticket
+    $table->unique(['patient_id', 'doctor_id', 'ticket_id']);
+
+        });
     }
 
     /**

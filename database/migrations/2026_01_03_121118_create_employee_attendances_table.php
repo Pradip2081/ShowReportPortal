@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employee_attendances', function (Blueprint $table) {
-             $table->id();
-            $table->foreignId('employee_profile_id')->constrained()->cascadeOnDelete();
+            $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->date('attendance_date');
             $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
             $table->timestamps();
-            $table->unique(['employee_profile_id', 'attendance_date']);
-                });
+            $table->unique(['employee_id', 'attendance_date']);
+        });
     }
 
     /**

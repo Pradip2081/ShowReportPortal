@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('doctor_sessions', function (Blueprint $table) {
-           $table->id();
-            $table->foreignId('doctor_profile_id')->constrained()->cascadeOnDelete();
+             $table->id();
+            $table->foreignId('doctor_id')->constrained()->cascadeOnDelete();
             $table->timestamp('logged_in_at')->nullable();
             $table->timestamp('last_active_at')->nullable();
             $table->timestamp('logged_out_at')->nullable();

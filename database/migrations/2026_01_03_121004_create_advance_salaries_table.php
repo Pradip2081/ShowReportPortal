@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advance_salary_requests', function (Blueprint $table) {
-            $table->id();
+        Schema::create('advance_salaries', function (Blueprint $table) {
+                $table->id();
 
-    $table->foreignId('employee_profile_id')
+    $table->foreignId('employee_id')
           ->constrained()
           ->cascadeOnDelete();
 
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advance_salary_requests');
+        Schema::dropIfExists('advance_salaries');
     }
 };

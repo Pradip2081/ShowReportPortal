@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chat_messages', function (Blueprint $table) {
-             $table->id();
+            $table->id();
 
     // Conversation
     $table->foreignId('chat_thread_id')
@@ -32,9 +32,8 @@ return new class extends Migration
     $table->timestamp('read_at')->nullable();
 
     $table->timestamps();
+$table->index(['sender_type', 'sender_id']);
 
-    // Index for speed
-    $table->index(['sender_type', 'sender_id']);
         });
     }
 

@@ -11,28 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payslips', function (Blueprint $table) {
-             $table->id();
+        Schema::create('employee_salaries', function (Blueprint $table) {
+            $table->id();
 
             // ==============================
-            // Relations
+            // Employee Relation
             // ==============================
-            $table->foreignId('employee_profile_id')
-                  ->constrained('employee_profiles')
-                  ->cascadeOnDelete();
+            $table->foreignId('employee_id')
 
-            $table->foreignId('employee_salary_id')
-                  ->constrained('employee_salaries')
+                  ->constrained()
                   ->cascadeOnDelete();
 
             // ==============================
-            // Payslip Period
+            // Salary Period
             // ==============================
             $table->unsignedTinyInteger('salary_month'); // 1–12
-            $table->unsignedSmallInteger('salary_year'); // 2024, 2025
+            $table->unsignedSmallInteger('salary_year'); // 2024, 2025...
 
             // ==============================
-            // Earnings (Snapshot)
+            // Earnings
             // ==============================
             $table->decimal('basic_salary', 10, 2);
             $table->decimal('allowance', 10, 2)->default(0);
@@ -40,47 +37,38 @@ return new class extends Migration
             $table->decimal('bonus_amount', 10, 2)->default(0);
 
             // ==============================
-            // Deductions (Snapshot)
+            // Deductions (Nepal Context)
             // ==============================
             $table->decimal('tax_amount', 10, 2)->default(0);
-            $table->decimal('pf_amount', 10, 2)->default(0);
-            $table->decimal('ssf_amount', 10, 2)->default(0);
-            $table->decimal('cit_amount', 10, 2)->default(0);
+            $table->decimal('pf_amount', 10, 2)->default(0);   // Provident Fund
+            $table->decimal('ssf_amount', 10, 2)->default(0);  // Social Security Fund
+            $table->decimal('cit_amount', 10, 2)->default(0);  // Citizen Investment Trust
             $table->decimal('advance_deduction', 10, 2)->default(0);
             $table->decimal('other_deduction', 10, 2)->default(0);
 
             // ==============================
-            // Totals
+            // Salary Totals
             // ==============================
             $table->decimal('gross_salary', 10, 2);
-            $table->decimal('total_deduction', 10, 2);
             $table->decimal('net_salary', 10, 2);
 
             // ==============================
-            // Payslip Info
+            // Payment Info
             // ==============================
-            $table->string('payslip_number')->unique(); // PS-2025-08-0001
-            $table->date('issued_date')->default(now());
+            $table->date('payment_date')->nullable();
+            $table->enum('payment_method', ['cash', 'bank_transfer'])->nullable();
 
             // ==============================
-            // Status
+            // Status & Control
             // ==============================
-            $table->enum('status', ['generated', 'sent', 'paid'])
-                  ->default('generated');
+            $table->enum('status', ['draft', 'approved', 'paid'])
+                  ->default('draft');
 
-            $table->boolean('is_locked')->default(true); // Payslip never editable
+            $table->boolean('is_locked')->default(false);
             $table->text('remarks')->nullable();
 
             $table->timestamps();
 
-            // ==============================
-            // Indexing
-            // ==============================
-            $table->unique([
-                'employee_profile_id',
-                'salary_month',
-                'salary_year'
-            ]);
         });
     }
 
@@ -89,6 +77,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payslips');
+        Schema::dropIfExists('employee_salaries');
     }
 };

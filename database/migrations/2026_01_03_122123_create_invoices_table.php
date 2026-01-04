@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_invoices', function (Blueprint $table) {
-            $table->id();
+        Schema::create('invoices', function (Blueprint $table) {
+              $table->id();
 
-          $table->foreignId('employee_profile_id')
+          $table->foreignId('employee_id')
           ->nullable()
           ->constrained()
           ->cascadeOnDelete();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('description')->nullable();
 
             $table->timestamps();
-                });
+        });
     }
 
     /**
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_invoices');
+        Schema::dropIfExists('invoices');
     }
 };

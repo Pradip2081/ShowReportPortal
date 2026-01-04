@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('expenses', function (Blueprint $table) {
-             $table->id();
+                  $table->id();
 
     $table->string('title'); // Expense title
     $table->decimal('amount', 12, 2); // Expense amount
@@ -26,7 +26,7 @@ return new class extends Migration
     $table->text('description')->nullable(); // Details
     $table->date('expense_date'); // When expense occurred
 
-    $table->foreignId('employee_profile_id')->nullable()->constrained()->cascadeOnDelete();
+    $table->foreignId('employee_id')->nullable()->constrained()->cascadeOnDelete();
     // Optional: who made the expense
 
     $table->timestamps();

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeProfile extends Model
+class AdvanceSalary extends Model
 {
     //
 }
